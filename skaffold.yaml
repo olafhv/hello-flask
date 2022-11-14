@@ -1,0 +1,18 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: hello-python
+
+build:
+  cluster:
+    dockerConfig:
+      secretName: kaniko-secret
+  artifacts:
+  - image: hello-python
+
+deploy:
+  kubectl: {}
+
+manifests:
+  rawYaml:
+     - deployment.yaml
