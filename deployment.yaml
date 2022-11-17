@@ -13,11 +13,12 @@ spec:
       labels:
         app: hello-python
     spec:
+      enableServiceLinks: false
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: hello-python
           image: hello-python
-#          image: {{ .Values.image }}
-#          imagePullSecrets: regcred
           env:
             - name: MY_POD_NAME
               valueFrom:

@@ -8,7 +8,7 @@ metrics = PrometheusMetrics(app)
 
 @app.route('/')
 def index():
-    return 'Hello from pod'
+    return 'Hello from Python!'
 
 
 print("Pod strated %s" % os.environ)
