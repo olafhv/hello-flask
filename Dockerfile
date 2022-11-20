@@ -1,3 +1,16 @@
-FROM harbor.k-space.ee/k-space/microservice-base
-ADD hello-world.py /hello-world.py
-ENTRYPOINT /hello-world.py
+FROM python:alpine AS build
+RUN apk add --no-cache gcc make musl-dev linux-headers git \
+ && pip3 wheel --wheel-dir=/wheels \
+      flask \
+      prometheus-flask-exporter \
+      ecs-logging
+
+FROM python:alpine
+COPY --from=build /wheels /wheels
+RUN pip3 install --no-index /wheels/*.whl && rm -Rfv /wheels
+LABEL name="codemowers/hello-flask" \
+      version="rc" \
+      maintainer="Lauri Võsandi <lauri@codemowers.io>"
+ENV PYTHONUNBUFFERED=1
+ADD app /app
+ENTRYPOINT /app/app.py

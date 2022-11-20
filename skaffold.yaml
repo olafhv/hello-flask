@@ -1,14 +1,14 @@
 apiVersion: skaffold/v3
 kind: Config
 metadata:
-  name: hello-python
+  name: hello-flask
 
 build:
   cluster:
     dockerConfig:
       secretName: kaniko-secret
   artifacts:
-  - image: hello-python
+  - image: hello-flask
 
 deploy:
   kubectl: {}
