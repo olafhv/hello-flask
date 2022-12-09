@@ -3,16 +3,18 @@ kind: Config
 metadata:
   name: hello-flask
 
-build:
-  cluster:
-    dockerConfig:
-      secretName: kaniko-secret
-  artifacts:
-  - image: hello-flask
-
 deploy:
   kubectl: {}
 
 manifests:
   rawYaml:
      - deployment.yaml
+
+build:
+  artifacts:
+  - image: hello-flask
+
+  # Comment following lines below to build locally
+  cluster:
+    dockerConfig:
+      secretName: kaniko-secret
