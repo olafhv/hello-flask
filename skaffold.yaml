@@ -17,4 +17,4 @@ build:
   # Comment following lines below to build locally
   cluster:
     dockerConfig:
-      secretName: kaniko-secret
+      secretName: kaniko
