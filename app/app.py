@@ -2,9 +2,15 @@
 import ecs_logging
 import logging
 import os
+import sys
 from flask import Flask, request
 from flask.logging import default_handler
 from prometheus_flask_exporter import PrometheusMetrics
+
+try:
+    _, greeting = sys.argv
+except ValueError:
+    greeting = "Hello from Python!"
 
 app = Flask(__name__)
 handler = logging.StreamHandler()
@@ -17,8 +23,8 @@ metrics = PrometheusMetrics(app)
 
 @app.route('/')
 def index():
-    app.logger.info("Hello from Python")
-    return 'Hello from Python!'
+    app.logger.info(greeting)
+    return greeting
 
 app.run(host='0.0.0.0', port=8000)
 
