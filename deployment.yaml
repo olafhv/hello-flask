@@ -13,12 +13,18 @@ spec:
       labels:
         app: hello-flask
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
       enableServiceLinks: false
       imagePullSecrets:
         - name: regcred
       containers:
         - name: hello-flask
           image: hello-flask
+          securityContext:
+            readOnlyRootFilesystem: true
           env:
             - name: MY_POD_NAME
               valueFrom:
